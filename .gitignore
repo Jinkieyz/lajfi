@@ -1,0 +1,30 @@
+# Blender
+*.blend1
+*.blend2
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.so
+
+# STL outputs (keep examples, ignore runtime exports)
+output/
+!output/.gitkeep
+*.stl
+!examples/stl/*.stl
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.bak
