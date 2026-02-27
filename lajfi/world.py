@@ -202,7 +202,7 @@ def tick():
         if c.energy >= SATISFIED_ENERGY:
             can_breed = (
                 c.can_mate() and
-                len(creatures) + len(new_children) - len(killed) < MAX_CREATURES
+                len(creatures) + len(new_children) - len(killed) <= MAX_CREATURES
             )
 
             if can_breed:
