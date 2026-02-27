@@ -226,7 +226,95 @@ class TriadCreature:
         self.obj.name = f"LAJFI_{self.name}"
         self.obj.location = Vector(self.position)
 
+        # Spawn animation
+        self.animate_spawn()
+
         return self.obj
+
+    def animate_spawn(self):
+        """Spawn animation: grow from nothing with bounce."""
+        if not self.obj:
+            return
+
+        obj = self.obj
+        obj.scale = (0.01, 0.01, 0.01)
+        step = [0]
+
+        def animate_step():
+            if obj.name not in bpy.data.objects:
+                return None
+
+            step[0] += 1
+
+            if step[0] <= 6:
+                # Phase 1: Grow with overshoot
+                progress = step[0] / 6.0
+                size = 0.01 + progress * 1.19  # Grow to 1.2
+                obj.scale = (size, size, size)
+                return 0.04
+
+            elif step[0] <= 10:
+                # Phase 2: Settle back to 1.0
+                progress = (step[0] - 6) / 4.0
+                size = 1.2 - progress * 0.2  # Shrink to 1.0
+                obj.scale = (size, size, size)
+                return 0.04
+
+            else:
+                obj.scale = (1.0, 1.0, 1.0)
+                return None
+
+        bpy.app.timers.register(animate_step, first_interval=0.02)
+
+    def animate_death(self):
+        """Death animation: flatten like a pancake, then vanish."""
+        if not self.obj:
+            return
+
+        # Create a ghost copy
+        ghost_mesh = self.obj.data.copy()
+        ghost = bpy.data.objects.new(f"GHOST_{self.name}", ghost_mesh)
+        bpy.context.collection.objects.link(ghost)
+        ghost.location = self.obj.location.copy()
+        start_z = ghost.location.z
+        ghost.rotation_euler = self.obj.rotation_euler.copy()
+
+        # Animation state
+        step = [0]
+
+        def animate_step():
+            # Check if ghost still exists
+            if ghost.name not in bpy.data.objects:
+                return None
+
+            step[0] += 1
+
+            if step[0] <= 6:
+                # Phase 1: Flatten (6 steps)
+                progress = step[0] / 6.0
+                ghost.scale = (
+                    1.0 + progress * 0.8,   # X grows to 1.8
+                    1.0 + progress * 0.8,   # Y grows to 1.8
+                    1.0 - progress * 0.98   # Z shrinks to 0.02
+                )
+                ghost.location.z = start_z - progress * 0.3
+                return 0.05  # Next step in 50ms
+
+            elif step[0] <= 10:
+                # Phase 2: Shrink to nothing (4 steps)
+                progress = (step[0] - 6) / 4.0
+                size = 1.8 * (1.0 - progress)
+                ghost.scale = (size, size, 0.02 * (1.0 - progress))
+                return 0.05
+
+            else:
+                # Done - remove ghost
+                if ghost.name in bpy.data.objects:
+                    bpy.data.objects.remove(ghost, do_unlink=True)
+                return None
+
+        # Start animation
+        bpy.app.timers.register(animate_step, first_interval=0.03)
 
     def update(self):
         """Tick. Age, consume energy, decrease cooldown."""
