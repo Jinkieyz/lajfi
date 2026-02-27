@@ -285,6 +285,7 @@ def tick():
     for c in dead:
         legacy = f"{c.children_count} kids" if c.children_count > 0 else "no kids"
         log(f"RIP: {c.name} age={c.age} gen={c.generation} ({legacy})")
+        c.animate_death()
         c.destroy()
         creatures.remove(c)
 
