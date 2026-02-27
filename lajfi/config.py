@@ -5,10 +5,10 @@ import os
 
 # !! HEY CUTIE - change this to your favourite local spot !!
 # Or set the LAJFI_OUTPUT environment variable
-OUTPUT_DIR = os.environ.get('LAJFI_OUTPUT', './output')
+OUTPUT_DIR = os.environ.get('LAJFI_OUTPUT', '/tmp/lajfi_output')
 
 WORLD_SIZE = 20       # 20x20 plane. Creatures live on this.
-MAX_CREATURES = 3     # Three creatures for more dynamics
+MAX_CREATURES = 3     # Triad: en dör, två parar sig, barn föds
 MAX_PLANTS = 8        # Respawn when eaten
 TICK_SPEED = 0.3      # Seconds between simulation updates
 
