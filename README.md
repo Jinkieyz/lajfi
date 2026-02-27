@@ -326,7 +326,7 @@ SOFTWARE.
 - Email: auspekzer@gmail.com
 - Program: Glass & Ceramics, Konstfack University of Arts, Crafts and Design
 
-This project is part of the **hard copy** thesis project (2026), exploring the intersection of generative algorithms and physical glass sculpture.
+This project is part of the **Hard Copy** bachelor's degree project (2026), exploring the intersection of generative algorithms and physical glass sculpture.
 
 ## Contributing
 
