@@ -14,6 +14,7 @@ output/
 !output/.gitkeep
 *.stl
 !examples/stl/*.stl
+!examples/pentad/stl/*.stl
 
 # OS
 .DS_Store

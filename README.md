@@ -83,6 +83,7 @@ The superformula can approximate many biological forms:
 lajfi/
 ├── run.py              # Entry point - run this with Blender
 ├── lajfi.sh            # Shell script launcher
+├── generate_pentad.py  # Standalone PENTAD generator
 ├── lajfi/              # Main package
 │   ├── __init__.py
 │   ├── config.py       # All tunable parameters
@@ -94,8 +95,11 @@ lajfi/
 │   ├── main.py         # Startup and initialization
 │   └── utils.py        # Logging utilities
 ├── examples/
-│   ├── images/         # Screenshots
-│   └── stl/            # Example exported creatures
+│   ├── images/         # Screenshots (TRIAD)
+│   ├── stl/            # Example TRIAD creatures
+│   └── pentad/         # PENTAD examples
+│       ├── images/     # PENTAD screenshots
+│       └── stl/        # Example PENTAD creatures
 └── output/             # Your STL exports go here
 ```
 
@@ -125,6 +129,76 @@ CREATURE
 ```
 
 **Total: 32 DNA parameters**
+
+## PENTAD Mode
+
+PENTAD extends TRIAD by using **five overlapping Gielis supershapes** instead of three. This creates more complex, asymmetric organic forms with richer surface topology.
+
+![PENTAD creature](examples/pentad/images/pentad_MUGI.png)
+
+### PENTAD vs TRIAD
+
+| Aspect | TRIAD | PENTAD |
+|--------|-------|--------|
+| Gielis segments | 3 | 5 |
+| DNA parameters | 32 | 48 |
+| Complexity | Balanced | Higher |
+| Generation time | ~2 sec | ~3 sec |
+
+### Generating PENTAD Creatures
+
+Use the standalone generator script:
+
+```bash
+# Generate 10 PENTAD creatures
+flatpak run org.blender.Blender --background --python generate_pentad.py -- --count 10
+
+# Generate 1 with screenshot
+flatpak run org.blender.Blender --background --python generate_pentad.py -- --count 1 --screenshot
+```
+
+Or with standard Blender installation:
+
+```bash
+blender --background --python generate_pentad.py -- --count 100
+```
+
+### PENTAD Architecture
+
+```
+PENTAD CREATURE
+│
+├── Gielis Form 1 (core)
+│      └── 8 parameters
+│
+├── Gielis Form 2 (attached to 1)
+│      └── 8 parameters
+│
+├── Gielis Form 3 (attached to 1 or 2)
+│      └── 8 parameters
+│
+├── Gielis Form 4 (attached to any previous)
+│      └── 8 parameters
+│
+├── Gielis Form 5 (attached to any previous)
+│      └── 8 parameters
+│
+└── Fractal Genes (same as TRIAD)
+       └── levels, children, scale
+```
+
+The five segments attach to each other in a tree-like structure. Each new segment attaches to a randomly selected previous segment at a random angle, creating organic asymmetry.
+
+### Example PENTAD Creatures
+
+See `examples/pentad/stl/` for sample creatures:
+
+| File | Description |
+|------|-------------|
+| `pentad_BOSA_gen1_*.stl` | Large complex form |
+| `pentad_DERU_gen1_*.stl` | Medium density |
+| `pentad_PATU_gen1_*.stl` | Compact shape |
+| `pentad_ZOBE_gen1_*.stl` | Asymmetric growth |
 
 ## DNA System
 
