@@ -373,7 +373,7 @@ https://doi.org/10.1162/106365602320169811
 
 MIT License
 
-Copyright (c) 2026 Nadeschda Barenje Lindgren
+Copyright (c) 2026 Nadeschda Barenje
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -395,9 +395,8 @@ SOFTWARE.
 
 ## Author
 
-**Nadeschda Barenje Lindgren**
+**Nadeschda Barenje**
 - Website: [vetroal.se](https://vetroal.se)
-- Email: auspekzer@gmail.com
 - Program: Glass & Ceramics, Konstfack University of Arts, Crafts and Design
 
 This project is part of the **Hard Copy** bachelor's degree project (2026), exploring the intersection of generative algorithms and physical glass sculpture.
